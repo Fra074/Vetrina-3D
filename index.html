@@ -3,10 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benvenuti</title>
+    <title>Il Mio Portfolio 3D</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        .container { max-width: 800px; margin: auto; padding: 20px; }
+        img, video, canvas { max-width: 100%; height: auto; display: block; margin-top: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    </style>
 </head>
 <body>
-    <h1>Benvenuti nel mio sito!</h1>
-    <p>Questo è un punto di partenza. Torna presto per vedere il mio portfolio.</p>
+    <div class="container">
+        <h1>Benvenuti nel mio Portfolio 3D</h1>
+        <p>Qui puoi trovare i miei migliori elaborati, dalle nuvole di punti ai modelli 3D e video.</p>
+
+        <h2>Galleria Fotografica</h2>
+        <img src="images/foto1.jpg" alt="Descrizione della foto 1">
+        <img src="images/foto2.jpg" alt="Descrizione della foto 2">
+        
+        <h2>Video</h2>
+        <p>Guarda i video dei miei voli e delle mie ispezioni.</p>
+        <video controls>
+            <source src="video/video1.mp4" type="video/mp4">
+            Il tuo browser non supporta la riproduzione video.
+        </video>
+
+        <h2>Modelli 3D</h2>
+        <p>Esplora i miei modelli e nuvole di punti direttamente qui.</p>
+        <div style="height: 400px; width: 100%;">
+            <canvas id="modello-glb"></canvas>
+        </div>
+        
+        <div style="height: 400px; width: 100%;">
+            <canvas id="modello-ply"></canvas>
+        </div>
+
+    </div>
+
+    <script type="module">
+        // Importa la libreria Three.js per i modelli GLB
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.module.js';
+        import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/jsm/loaders/GLTFLoader.js';
+        import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/jsm/controls/OrbitControls.js';
+    
+        function setupGLBViewer(canvasId, modelPath) {
+            const canvas = document.getElementById(canvasId);
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    
+            const controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.25;
+            controls.enableZoom = true;
+    
+            const light = new THREE.AmbientLight(0xffffff, 1);
+            scene.add(light);
+    
+            const loader = new GLTFLoader();
+            loader.load(modelPath, function(gltf) {
+                const model = gltf.scene;
+                scene.add(model);
+                camera.position.set(0, 0, 2);
+                const box = new THREE.Box3().setFromObject(model);
+                const size = box.getSize(new THREE.Vector3());
+                const center = box.getCenter(new THREE.Vector3());
+                controls.target.copy(center);
+                camera.position.copy(center).add(new THREE.Vector3(size.x, size.y, size.z).normalize().multiplyScalar(Math.max(size.x, size.y, size.z) * 1.5));
+                
+                function animate() {
+                    requestAnimationFrame(animate);
+                    controls.update();
+                    renderer.render(scene, camera);
+                }
+                animate();
+            }, undefined, function(error) {
+                console.error('An error happened loading the GLB model:', error);
+            });
+    
+            window.addEventListener('resize', () => {
+                camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            });
+        }
+    
+        // Carica il tuo modello GLB (sostituisci il nome del file)
+        setupGLBViewer('modello-glb', 'models/il-tuo-modello.glb');
+    </script>
 </body>
 </html>
