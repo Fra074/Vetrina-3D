@@ -10,12 +10,12 @@ header { background: #2c3e50; color: white; padding: 1em; text-align: center; }
 header h1 { margin: 0; font-size: 2em; }
 nav a { color: #ecf0f1; margin: 0 1em; text-decoration: none; font-weight: bold; }
 nav a:hover { color: #3498db; }
-main { max-width: 1200px; margin: 2em auto; padding: 1em; }
-section { margin-bottom: 3em; text-align: center; }
+main { max-width: 1200px; margin: 2em auto; padding: 1em; text-align: center; }
+section { margin-bottom: 3em; }
 section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db; display: inline-block; padding-bottom: 0.3em; margin-bottom: 1em; }
 .thumbnail { max-width: 200px; border-radius: 6px; margin: 10px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-.modello-wrapper, .photo-wrapper { text-align: center; margin-bottom: 20px; }
-.photo-wrapper p, .modello-wrapper p { margin: 2px 0; }
+.modello-wrapper { display: inline-block; text-align: center; margin: 15px; vertical-align: top; width: 220px; }
+.modello-wrapper p { margin: 5px 0; font-size: 0.95em; color: #555; }
 </style>
 </head>
 <body>
@@ -30,36 +30,29 @@ section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db;
 </header>
 
 <main>
-    <p>Esplora i miei modelli 3D e le foto. Clicca sulle anteprime per aprire il visualizzatore o l’immagine completa.</p>
-
-    <!-- Sezione 3D -->
-    <h2>Modelli 3D</h2>
+    <p>Clicca sulle anteprime per aprire i modelli 3D nel visualizzatore online.</p>
     <div id="catalogo-3d"></div>
-
-    <!-- Sezione Foto -->
-    <h2>Galleria Fotografica</h2>
-    <div id="catalogo-foto"></div>
 </main>
 
 <script>
-// --- Modelli 3D ---
+// --- Array dei modelli 3D ---
 const modelliDemo = [
     {
         titolo: "Chiesetta (demo PLY)",
         url: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/models/chiesetta.ply",
-        thumb: "images/thumb_chiesetta.jpg"
+        thumb: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/images/thumb_chiesetta.jpg"
     },
     {
         titolo: "Chiesetta Moimacco",
         url: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/models/Chiesetta_Moimacco.ply",
-        thumb: "images/chiesetta_moimacco.png"
+        thumb: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/images/chiesetta_moimacco.png"
     }
     // Puoi aggiungere altri modelli qui
 ];
 
 const catalogo3D = document.getElementById("catalogo-3d");
+
 modelliDemo.forEach(modello => {
-    const section = document.createElement("section");
     const wrapper = document.createElement("div");
     wrapper.className = "modello-wrapper";
 
@@ -74,48 +67,7 @@ modelliDemo.forEach(modello => {
 
     wrapper.appendChild(img);
     wrapper.appendChild(desc);
-    section.appendChild(wrapper);
-    catalogo3D.appendChild(section);
-});
-
-// --- Foto ---
-const fotoDemo = [
-    {
-        src: "images/foto1.jpg",
-        titolo: "Report RGB Vol. 1",
-        descrizione: "Elaborazione RGB con WebODM"
-    },
-    {
-        src: "images/foto2.jpg",
-        titolo: "Report RGB Vol. 2",
-        descrizione: "Elaborazione ortofoto con DTM incluso"
-    }
-    // Puoi aggiungere altre foto qui
-];
-
-const catalogoFoto = document.getElementById("catalogo-foto");
-fotoDemo.forEach(foto => {
-    const wrapper = document.createElement("div");
-    wrapper.className = "photo-wrapper";
-
-    const img = document.createElement("img");
-    img.src = foto.src;
-    img.alt = foto.titolo;
-    img.className = "thumbnail";
-    img.onclick = () => window.open(foto.src, "_blank");
-
-    const title = document.createElement("p");
-    title.textContent = foto.titolo;
-    title.style.fontWeight = "bold";
-
-    const desc = document.createElement("p");
-    desc.textContent = foto.descrizione || "";
-    desc.style.fontSize = "0.9em";
-
-    wrapper.appendChild(img);
-    wrapper.appendChild(title);
-    wrapper.appendChild(desc);
-    catalogoFoto.appendChild(wrapper);
+    catalogo3D.appendChild(wrapper);
 });
 </script>
 
