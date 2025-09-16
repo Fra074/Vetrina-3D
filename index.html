@@ -13,8 +13,8 @@ nav a:hover { color: #3498db; }
 main { max-width: 1200px; margin: 2em auto; padding: 1em; }
 section { margin-bottom: 3em; text-align: center; }
 section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db; display: inline-block; padding-bottom: 0.3em; margin-bottom: 1em; }
-iframe { width: 100%; max-width: 900px; height: 500px; border: none; border-radius: 8px; margin-top: 10px; }
 .thumbnail { max-width: 200px; border-radius: 6px; margin: 10px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+.modello-wrapper, .photo-wrapper { text-align: center; }
 </style>
 </head>
 <body>
@@ -29,32 +29,32 @@ iframe { width: 100%; max-width: 900px; height: 500px; border: none; border-radi
 </header>
 
 <main>
-    <p>Esplora i miei modelli demo. Clicca sulle anteprime per aprire il visualizzatore online.</p>
+    <p>Esplora i miei modelli demo e le foto. Clicca sulle anteprime per aprire il visualizzatore online.</p>
 
+    <!-- Sezione 3D -->
     <div id="catalogo-3d"></div>
+
+    <!-- Sezione Foto -->
+    <h2>Galleria Fotografica</h2>
+    <div id="catalogo-foto"></div>
 </main>
 
 <script>
-// --- Array di modelli demo ---
+// --- Modelli 3D ---
 const modelliDemo = [
     {
         titolo: "Chiesetta (demo PLY)",
         url: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/models/chiesetta.ply",
         thumb: "images/thumb_chiesetta.jpg"
     },
-      {
+    {
         titolo: "Chiesetta Moimacco",
         url: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/models/Chiesetta_Moimacco.ply",
         thumb: "images/chiesetta_moimacco.png"
-    },
-    {
-        titolo: "Altro modello (demo PLY)",
-        url: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/models/esempio2.ply",
-        thumb: "images/thumb_esempio2.jpg"
     }
 ];
 
-const catalogo = document.getElementById("catalogo-3d");
+const catalogo3D = document.getElementById("catalogo-3d");
 
 modelliDemo.forEach(modello => {
     const section = document.createElement("section");
@@ -70,8 +70,48 @@ modelliDemo.forEach(modello => {
     }
 
     section.appendChild(h2);
-    section.appendChild(img);
-    catalogo.appendChild(section);
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "modello-wrapper";
+    wrapper.appendChild(img);
+
+    const desc = document.createElement("p");
+    desc.textContent = modello.titolo;
+    wrapper.appendChild(desc);
+
+    section.appendChild(wrapper);
+    catalogo3D.appendChild(section);
+});
+
+// --- Foto ---
+const fotoDemo = [
+    {
+        titolo: "Foto 1",
+        src: "images/foto1.jpg"
+    },
+    {
+        titolo: "Foto 2",
+        src: "images/foto2.jpg"
+    }
+];
+
+const catalogoFoto = document.getElementById("catalogo-foto");
+
+fotoDemo.forEach(foto => {
+    const wrapper = document.createElement("div");
+    wrapper.className = "photo-wrapper";
+
+    const img = document.createElement("img");
+    img.src = foto.src;
+    img.className = "thumbnail";
+    img.alt = foto.titolo;
+
+    const desc = document.createElement("p");
+    desc.textContent = foto.titolo;
+
+    wrapper.appendChild(img);
+    wrapper.appendChild(desc);
+    catalogoFoto.appendChild(wrapper);
 });
 </script>
 
