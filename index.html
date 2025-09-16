@@ -14,7 +14,8 @@ main { max-width: 1200px; margin: 2em auto; padding: 1em; }
 section { margin-bottom: 3em; text-align: center; }
 section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db; display: inline-block; padding-bottom: 0.3em; margin-bottom: 1em; }
 .thumbnail { max-width: 200px; border-radius: 6px; margin: 10px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-.modello-wrapper, .photo-wrapper { text-align: center; }
+.modello-wrapper, .photo-wrapper { text-align: center; margin-bottom: 20px; }
+.photo-wrapper p { margin: 2px 0; }
 </style>
 </head>
 <body>
@@ -29,9 +30,10 @@ section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db;
 </header>
 
 <main>
-    <p>Esplora i miei modelli demo e le foto. Clicca sulle anteprime per aprire il visualizzatore online.</p>
+    <p>Esplora i miei modelli 3D e le foto. Clicca sulle anteprime per aprire il visualizzatore o l’immagine completa.</p>
 
     <!-- Sezione 3D -->
+    <h2>Modelli 3D</h2>
     <div id="catalogo-3d"></div>
 
     <!-- Sezione Foto -->
@@ -40,7 +42,7 @@ section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db;
 </main>
 
 <script>
-// --- Modelli 3D ---
+// --- Modelli 3D dinamici ---
 const modelliDemo = [
     {
         titolo: "Chiesetta (demo PLY)",
@@ -52,14 +54,13 @@ const modelliDemo = [
         url: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/models/Chiesetta_Moimacco.ply",
         thumb: "images/chiesetta_moimacco.png"
     }
+    // Puoi aggiungere altri modelli qui
 ];
 
 const catalogo3D = document.getElementById("catalogo-3d");
 
 modelliDemo.forEach(modello => {
     const section = document.createElement("section");
-    const h2 = document.createElement("h2");
-    h2.textContent = modello.titolo;
 
     const img = document.createElement("img");
     img.src = modello.thumb;
@@ -68,8 +69,6 @@ modelliDemo.forEach(modello => {
     img.onclick = () => {
         window.open(`https://3dviewer.net/#model=${modello.url}`, "_blank");
     }
-
-    section.appendChild(h2);
 
     const wrapper = document.createElement("div");
     wrapper.className = "modello-wrapper";
@@ -83,16 +82,19 @@ modelliDemo.forEach(modello => {
     catalogo3D.appendChild(section);
 });
 
-// --- Foto ---
+// --- Foto dinamiche ---
 const fotoDemo = [
     {
-        titolo: "Foto 1",
-        src: "images/foto1.jpg"
+        src: "images/foto1.jpg",
+        titolo: "Report RGB Vol. 1",
+        descrizione: "Elaborazione RGB con WebODM"
     },
     {
-        titolo: "Foto 2",
-        src: "images/foto2.jpg"
+        src: "images/foto2.jpg",
+        titolo: "Report RGB Vol. 2",
+        descrizione: "Elaborazione ortofoto con DTM incluso"
     }
+    // Puoi aggiungere altre foto qui
 ];
 
 const catalogoFoto = document.getElementById("catalogo-foto");
@@ -105,11 +107,20 @@ fotoDemo.forEach(foto => {
     img.src = foto.src;
     img.className = "thumbnail";
     img.alt = foto.titolo;
+    img.onclick = () => {
+        window.open(foto.src, "_blank");
+    }
+
+    const title = document.createElement("p");
+    title.textContent = foto.titolo;
+    title.style.fontWeight = "bold";
 
     const desc = document.createElement("p");
-    desc.textContent = foto.titolo;
+    desc.textContent = foto.descrizione || "";
+    desc.style.fontSize = "0.9em";
 
     wrapper.appendChild(img);
+    wrapper.appendChild(title);
     wrapper.appendChild(desc);
     catalogoFoto.appendChild(wrapper);
 });
