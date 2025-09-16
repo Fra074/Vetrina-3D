@@ -5,17 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contatti e Ringraziamenti</title>
 <style>
-body { font-family: Arial, sans-serif; margin: 0; background: #f4f7f6; color: #333; }
+body { font-family: Arial, sans-serif; margin: 0; background: #f4f7f6; color: #333; line-height: 1.6; }
 header { background: #2c3e50; color: white; padding: 1em; text-align: center; }
+header h1 { margin: 0; font-size: 2em; }
 nav a { color: #ecf0f1; margin: 0 1em; text-decoration: none; font-weight: bold; }
 nav a:hover { color: #3498db; }
 main { max-width: 800px; margin: 2em auto; padding: 1em; text-align: center; }
-.banner { background: #3498db; color: white; padding: 10px; margin: 20px 0; border-radius: 6px; }
+section { margin-bottom: 2em; }
+section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db; display: inline-block; padding-bottom: 0.3em; margin-bottom: 1em; }
+a.contact-link { color: #3498db; text-decoration: none; font-weight: bold; }
+a.contact-link:hover { text-decoration: underline; }
+.banner { margin-top: 20px; padding: 15px; background-color: #ecf0f1; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 </style>
 </head>
 <body>
+
 <header>
-    <h1>Contatti & Ringraziamenti</h1>
+    <h1>Contatti e Ringraziamenti</h1>
     <nav>
         <a href="index.html">3D</a> |
         <a href="foto.html">Foto</a> |
@@ -24,16 +30,30 @@ main { max-width: 800px; margin: 2em auto; padding: 1em; text-align: center; }
 </header>
 
 <main>
-    <h2>Contatti</h2>
-    <p>Email: info@tuo-sito.com</p>
-    <p>Telefono: +39 123 456 789</p>
+    <!-- Ringraziamenti -->
+    <section>
+        <h2>Ringraziamenti</h2>
+        <p>Grazie a tutti coloro che hanno supportato questo progetto. Un ringraziamento speciale ai collaboratori e agli sponsor.</p>
+    </section>
 
-    <div class="banner">
-        Grazie ai miei collaboratori e sponsor per il supporto!
-    </div>
+    <!-- Contatti -->
+    <section>
+        <h2>Contatti</h2>
+        <p>Per informazioni, richieste o collaborazioni:</p>
+        <p>Email: <a href="mailto:tuoindirizzo@email.com" class="contact-link">tuoindirizzo@email.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/tuo-linkedin" target="_blank" class="contact-link">Profilo LinkedIn</a></p>
+        <p>Instagram: <a href="https://www.instagram.com/tuo-instagram" target="_blank" class="contact-link">@tuo-instagram</a></p>
+    </section>
 
-    <h2>Ringraziamenti Speciali</h2>
-    <p>Qui puoi aggiungere collaboratori, partner, sponsor o altre note importanti.</p>
+    <!-- Banner o link collaboratori/sponsor -->
+    <section>
+        <h2>Collaboratori / Sponsor</h2>
+        <div class="banner">
+            <p>Qui puoi inserire banner, loghi, link a siti web di partner o sponsor.</p>
+            <p>Esempio: <a href="https://www.sitoesempio.com" target="_blank">Sito Partner</a></p>
+        </div>
+    </section>
 </main>
+
 </body>
 </html>
