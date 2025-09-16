@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vetrina Modelli 3D</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 0; background: #f4f7f6; color: #333; line-height: 1.6; }
+header { background: #2c3e50; color: white; padding: 1em; text-align: center; }
+header h1 { margin: 0; font-size: 2em; }
+nav a { color: #ecf0f1; margin: 0 1em; text-decoration: none; font-weight: bold; }
+nav a:hover { color: #3498db; }
+main { max-width: 1200px; margin: 2em auto; padding: 1em; }
+section { margin-bottom: 3em; text-align: center; }
+section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db; display: inline-block; padding-bottom: 0.3em; margin-bottom: 1em; }
+iframe { width: 100%; max-width: 900px; height: 500px; border: none; border-radius: 8px; margin-top: 10px; }
+.thumbnail { max-width: 200px; border-radius: 6px; margin: 10px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Vetrina Modelli 3D</h1>
+    <nav>
+        <a href="index.html">3D</a> |
+        <a href="foto.html">Foto</a> |
+        <a href="contatti.html">Contatti</a>
+    </nav>
+</header>
+
+<main>
+    <p>Esplora i miei modelli demo. Clicca sulle anteprime per aprire il visualizzatore online.</p>
+
+    <div id="catalogo-3d"></div>
+</main>
+
+<script>
+// --- Array di modelli demo ---
+const modelliDemo = [
+    {
+        titolo: "Chiesetta (demo PLY)",
+        url: "https://raw.githubusercontent.com/tuo-utente/Vetrina-3D/main/models/chiesetta.ply",
+        thumb: "images/thumb_chiesetta.jpg"
+    },
+    {
+        titolo: "Altro modello (demo PLY)",
+        url: "https://raw.githubusercontent.com/tuo-utente/Vetrina-3D/main/models/esempio2.ply",
+        thumb: "images/thumb_esempio2.jpg"
+    }
+];
+
+const catalogo = document.getElementById("catalogo-3d");
+
+modelliDemo.forEach(modello => {
+    const section = document.createElement("section");
+    const h2 = document.createElement("h2");
+    h2.textContent = modello.titolo;
+
+    const img = document.createElement("img");
+    img.src = modello.thumb;
+    img.className = "thumbnail";
+    img.alt = modello.titolo;
+    img.onclick = () => {
+        window.open(`https://3dviewer.net/#model=${modello.url}`, "_blank");
+    }
+
+    section.appendChild(h2);
+    section.appendChild(img);
+    catalogo.appendChild(section);
+});
+</script>
+
+</body>
+</html>
