@@ -15,7 +15,7 @@ section { margin-bottom: 3em; text-align: center; }
 section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db; display: inline-block; padding-bottom: 0.3em; margin-bottom: 1em; }
 .thumbnail { max-width: 200px; border-radius: 6px; margin: 10px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
 .modello-wrapper, .photo-wrapper { text-align: center; margin-bottom: 20px; }
-.photo-wrapper p { margin: 2px 0; }
+.photo-wrapper p, .modello-wrapper p { margin: 2px 0; }
 </style>
 </head>
 <body>
@@ -42,7 +42,7 @@ section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db;
 </main>
 
 <script>
-// --- Modelli 3D dinamici ---
+// --- Modelli 3D ---
 const modelliDemo = [
     {
         titolo: "Chiesetta (demo PLY)",
@@ -58,31 +58,27 @@ const modelliDemo = [
 ];
 
 const catalogo3D = document.getElementById("catalogo-3d");
-
 modelliDemo.forEach(modello => {
     const section = document.createElement("section");
+    const wrapper = document.createElement("div");
+    wrapper.className = "modello-wrapper";
 
     const img = document.createElement("img");
     img.src = modello.thumb;
-    img.className = "thumbnail";
     img.alt = modello.titolo;
-    img.onclick = () => {
-        window.open(`https://3dviewer.net/#model=${modello.url}`, "_blank");
-    }
-
-    const wrapper = document.createElement("div");
-    wrapper.className = "modello-wrapper";
-    wrapper.appendChild(img);
+    img.className = "thumbnail";
+    img.onclick = () => window.open(`https://3dviewer.net/#model=${modello.url}`, "_blank");
 
     const desc = document.createElement("p");
     desc.textContent = modello.titolo;
-    wrapper.appendChild(desc);
 
+    wrapper.appendChild(img);
+    wrapper.appendChild(desc);
     section.appendChild(wrapper);
     catalogo3D.appendChild(section);
 });
 
-// --- Foto dinamiche ---
+// --- Foto ---
 const fotoDemo = [
     {
         src: "images/foto1.jpg",
@@ -98,18 +94,15 @@ const fotoDemo = [
 ];
 
 const catalogoFoto = document.getElementById("catalogo-foto");
-
 fotoDemo.forEach(foto => {
     const wrapper = document.createElement("div");
     wrapper.className = "photo-wrapper";
 
     const img = document.createElement("img");
     img.src = foto.src;
-    img.className = "thumbnail";
     img.alt = foto.titolo;
-    img.onclick = () => {
-        window.open(foto.src, "_blank");
-    }
+    img.className = "thumbnail";
+    img.onclick = () => window.open(foto.src, "_blank");
 
     const title = document.createElement("p");
     title.textContent = foto.titolo;
