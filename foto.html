@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vetrina Modelli 3D</title>
+<title>Galleria Fotografica</title>
 <style>
 body { font-family: Arial, sans-serif; margin: 0; background: #f4f7f6; color: #333; line-height: 1.6; }
 header { background: #2c3e50; color: white; padding: 1em; text-align: center; }
@@ -13,14 +13,16 @@ nav a:hover { color: #3498db; }
 main { max-width: 1200px; margin: 2em auto; padding: 1em; }
 section { margin-bottom: 3em; text-align: center; }
 section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db; display: inline-block; padding-bottom: 0.3em; margin-bottom: 1em; }
-iframe { width: 100%; max-width: 900px; height: 500px; border: none; border-radius: 8px; margin-top: 10px; }
-.thumbnail { max-width: 200px; border-radius: 6px; margin: 10px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+.thumbnail { max-width: 250px; border-radius: 6px; margin: 10px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+.photo-wrapper { display: inline-block; text-align: center; margin: 15px; vertical-align: top; width: 260px; }
+.photo-wrapper p { margin: 2px 0; }
+.photo-wrapper .descrizione { font-size: 0.9em; color: #555; }
 </style>
 </head>
 <body>
 
 <header>
-    <h1>Vetrina Modelli 3D</h1>
+    <h1>Galleria Fotografica</h1>
     <nav>
         <a href="index.html">3D</a> |
         <a href="foto.html">Foto</a> |
@@ -29,44 +31,64 @@ iframe { width: 100%; max-width: 900px; height: 500px; border: none; border-radi
 </header>
 
 <main>
-    <p>Esplora i miei modelli demo. Clicca sulle anteprime per aprire il visualizzatore online.</p>
-
-    <div id="catalogo-3d"></div>
+    <p>Esplora la galleria delle immagini. Clicca sulle anteprime per aprire la foto completa.</p>
+    <div id="catalogo-foto"></div>
 </main>
 
 <script>
-// --- Array di modelli demo ---
-const modelliDemo = [
+// --- Array delle foto ---
+const fotoDemo = [
     {
-        titolo: "Chiesetta (demo PLY)",
-        url: "https://raw.githubusercontent.com/tuo-utente/Vetrina-3D/main/models/chiesetta.ply",
-        thumb: "images/thumb_chiesetta.jpg"
+        src: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/images/foto1.jpg",
+        titolo: "Foto 1",
+        descrizione: "Descrizione breve 1"
     },
     {
-        titolo: "Altro modello (demo PLY)",
-        url: "https://raw.githubusercontent.com/tuo-utente/Vetrina-3D/main/models/esempio2.ply",
-        thumb: "images/thumb_esempio2.jpg"
+        src: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/images/foto2.jpg",
+        titolo: "Foto 2",
+        descrizione: "Descrizione breve 2"
+    },
+    {
+        src: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/images/foto3.jpg",
+        titolo: "Foto 3",
+        descrizione: "Descrizione breve 3"
+    },
+    {
+        src: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/images/foto4.jpg",
+        titolo: "Foto 4",
+        descrizione: "Descrizione breve 4"
+    },
+    {
+        src: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/images/foto5.jpg",
+        titolo: "Foto 5",
+        descrizione: "Descrizione breve 5"
     }
 ];
 
-const catalogo = document.getElementById("catalogo-3d");
+const catalogoFoto = document.getElementById("catalogo-foto");
 
-modelliDemo.forEach(modello => {
-    const section = document.createElement("section");
-    const h2 = document.createElement("h2");
-    h2.textContent = modello.titolo;
+fotoDemo.forEach(foto => {
+    const wrapper = document.createElement("div");
+    wrapper.className = "photo-wrapper";
 
     const img = document.createElement("img");
-    img.src = modello.thumb;
+    img.src = foto.src;
+    img.alt = foto.titolo;
     img.className = "thumbnail";
-    img.alt = modello.titolo;
-    img.onclick = () => {
-        window.open(`https://3dviewer.net/#model=${modello.url}`, "_blank");
-    }
+    img.onclick = () => window.open(foto.src, "_blank");
 
-    section.appendChild(h2);
-    section.appendChild(img);
-    catalogo.appendChild(section);
+    const title = document.createElement("p");
+    title.textContent = foto.titolo;
+    title.style.fontWeight = "bold";
+
+    const desc = document.createElement("p");
+    desc.textContent = foto.descrizione;
+    desc.className = "descrizione";
+
+    wrapper.appendChild(img);
+    wrapper.appendChild(title);
+    wrapper.appendChild(desc);
+    catalogoFoto.appendChild(wrapper);
 });
 </script>
 
