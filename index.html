@@ -10,12 +10,11 @@ header { background: #2c3e50; color: white; padding: 1em; text-align: center; }
 header h1 { margin: 0; font-size: 2em; }
 nav a { color: #ecf0f1; margin: 0 1em; text-decoration: none; font-weight: bold; }
 nav a:hover { color: #3498db; }
-main { max-width: 1200px; margin: 2em auto; padding: 1em; text-align: center; }
-section { margin-bottom: 3em; }
-section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db; display: inline-block; padding-bottom: 0.3em; margin-bottom: 1em; }
+main { max-width: 1200px; margin: 2em auto; padding: 1em; }
+section { margin-bottom: 3em; text-align: center; }
+section h2 { font-size: 1.6em; color: #2c3e50; margin: 0.5em 0; }
+iframe { width: 100%; max-width: 900px; height: 500px; border: none; border-radius: 8px; margin-top: 10px; }
 .thumbnail { max-width: 200px; border-radius: 6px; margin: 10px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-.modello-wrapper { display: inline-block; text-align: center; margin: 15px; vertical-align: top; width: 220px; }
-.modello-wrapper p { margin: 5px 0; font-size: 0.95em; color: #555; }
 </style>
 </head>
 <body>
@@ -30,45 +29,46 @@ section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db;
 </header>
 
 <main>
-    <p>Clicca sulle anteprime per aprire i modelli 3D nel visualizzatore online.</p>
+    <p>Esplora i miei modelli demo. Clicca sulle anteprime per aprire il visualizzatore online.</p>
+
     <div id="catalogo-3d"></div>
 </main>
 
 <script>
-// --- Array dei modelli 3D ---
+// --- Array di modelli demo ---
 const modelliDemo = [
-
     {
-        titolo: "Chiesetta Moimacco",
-        url: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/models/Chiesetta_Moimacco.ply",
-        thumb: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/images/chiesetta_moimacco.png"
+        titolo: "Chiesetta (demo PLY)",
+        url: "models/chiesetta.ply",
+        thumb: "images/thumb_chiesetta.jpg"
     },
     {
-        titolo: "Casaforte in Sdricca",
-        url: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/models/Casaforte.ply",
-        thumb: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/images/casaforte.png"
+        titolo: "Chiesetta Moimacco",
+        url: "models/Chiesetta_Moimacco.ply",
+        thumb: "images/chiesetta_moimacco.png"
     }
-    // Puoi aggiungere altri modelli qui
+    // 👆 puoi aggiungerne altri seguendo questo schema
 ];
 
-const catalogo3D = document.getElementById("catalogo-3d");
+const catalogo = document.getElementById("catalogo-3d");
 
 modelliDemo.forEach(modello => {
-    const wrapper = document.createElement("div");
-    wrapper.className = "modello-wrapper";
+    const section = document.createElement("section");
 
     const img = document.createElement("img");
     img.src = modello.thumb;
-    img.alt = modello.titolo;
     img.className = "thumbnail";
-    img.onclick = () => window.open(`https://3dviewer.net/#model=${modello.url}`, "_blank");
+    img.alt = modello.titolo;
+    img.onclick = () => {
+        window.open(`https://3dviewer.net/#model=${modello.url}`, "_blank");
+    };
 
-    const desc = document.createElement("p");
-    desc.textContent = modello.titolo;
+    const h2 = document.createElement("h2");
+    h2.textContent = modello.titolo;
 
-    wrapper.appendChild(img);
-    wrapper.appendChild(desc);
-    catalogo3D.appendChild(wrapper);
+    section.appendChild(img);
+    section.appendChild(h2);
+    catalogo.appendChild(section);
 });
 </script>
 
