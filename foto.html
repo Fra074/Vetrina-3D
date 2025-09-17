@@ -3,20 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galleria Fotografica</title>
+<title>Vetrina Foto 3D</title>
 <style>
-body { font-family: Arial, sans-serif; margin: 0; background: #f4f7f6; color: #333; line-height: 1.6; }
-header { background: #2c3e50; color: white; padding: 1em; text-align: center; }
-header h1 { margin: 0; font-size: 2em; }
-nav a { color: #ecf0f1; margin: 0 1em; text-decoration: none; font-weight: bold; }
-nav a:hover { color: #3498db; }
-main { max-width: 1200px; margin: 2em auto; padding: 1em; }
-section { margin-bottom: 3em; text-align: center; }
-section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db; display: inline-block; padding-bottom: 0.3em; margin-bottom: 1em; }
-.thumbnail { max-width: 250px; border-radius: 6px; margin: 10px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-.photo-wrapper { display: inline-block; text-align: center; margin: 15px; vertical-align: top; width: 260px; }
-.photo-wrapper p { margin: 2px 0; }
-.photo-wrapper .descrizione { font-size: 0.9em; color: #555; }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background: #2c3e50;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+nav a {
+    color: #ecf0f1;
+    margin: 0 1em;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #3498db;
+}
+
+main {
+    max-width: 1200px;
+    margin: 2em auto;
+    padding: 1em;
+    text-align: center;
+}
+
+section {
+    margin-bottom: 3em;
+}
+
+section h2 {
+    font-size: 1.6em;
+    color: #2c3e50;
+    margin: 0.5em 0;
+}
+
+/* Contenitore per ogni immagine con descrizione */
+.foto {
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    vertical-align: top;
+}
+
+/* Immagini responsive */
+.foto img {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: block;
+    margin: 0 auto 10px auto;
+    object-fit: contain;
+}
+
+/* Descrizione sotto l’immagine */
+.foto p {
+    font-size: 0.9em;
+    margin: 0;
+    color: #555;
+}
 </style>
 </head>
 <body>
@@ -31,64 +93,57 @@ section h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 2px solid #3498db;
 </header>
 
 <main>
-    <p>Esplora la galleria delle immagini. Clicca sulle anteprime per aprire la foto completa.</p>
-    <div id="catalogo-foto"></div>
+    <p>Esplora le mie foto con descrizione sintetica. Clicca per aprire in dimensione originale.</p>
+
+    <section id="galleria-foto">
+        <!-- Le foto saranno inserite qui tramite JavaScript -->
+    </section>
 </main>
 
 <script>
 // --- Array delle foto ---
 const fotoDemo = [
     {
-        src: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/images/foto1.jpg",
-        titolo: "Foto 1",
-        descrizione: "Descrizione breve 1"
+        src: "images/foto1.jpg",
+        descrizione: "Report RGB da WebODM"
     },
     {
-        src: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/images/foto2.jpg",
-        titolo: "Foto 2",
-        descrizione: "Descrizione breve 2"
+        src: "images/foto2.jpg",
+        descrizione: "DTM e ortofoto"
     },
     {
-        src: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/images/foto3.jpg",
-        titolo: "Foto 3",
-        descrizione: "Descrizione breve 3"
+        src: "images/foto3.jpg",
+        descrizione: "CHM e modellazione vegetazione"
     },
     {
-        src: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/images/foto4.jpg",
-        titolo: "Foto 4",
-        descrizione: "Descrizione breve 4"
+        src: "images/foto4.jpg",
+        descrizione: "Analisi del terreno"
     },
     {
-        src: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/images/foto5.jpg",
-        titolo: "Foto 5",
-        descrizione: "Descrizione breve 5"
+        src: "images/foto5.jpg",
+        descrizione: "Vista dall'alto - progetto demo"
     }
 ];
 
-const catalogoFoto = document.getElementById("catalogo-foto");
+const galleria = document.getElementById("galleria-foto");
 
 fotoDemo.forEach(foto => {
-    const wrapper = document.createElement("div");
-    wrapper.className = "photo-wrapper";
+    const div = document.createElement("div");
+    div.className = "foto";
 
     const img = document.createElement("img");
     img.src = foto.src;
-    img.alt = foto.titolo;
-    img.className = "thumbnail";
-    img.onclick = () => window.open(foto.src, "_blank");
+    img.alt = foto.descrizione;
+    img.onclick = () => {
+        window.open(foto.src, "_blank");
+    };
 
-    const title = document.createElement("p");
-    title.textContent = foto.titolo;
-    title.style.fontWeight = "bold";
+    const p = document.createElement("p");
+    p.textContent = foto.descrizione;
 
-    const desc = document.createElement("p");
-    desc.textContent = foto.descrizione;
-    desc.className = "descrizione";
-
-    wrapper.appendChild(img);
-    wrapper.appendChild(title);
-    wrapper.appendChild(desc);
-    catalogoFoto.appendChild(wrapper);
+    div.appendChild(img);
+    div.appendChild(p);
+    galleria.appendChild(div);
 });
 </script>
 
