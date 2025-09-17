@@ -43,22 +43,23 @@ main {
     text-align: center;
 }
 
-section {
-    margin-bottom: 3em;
-}
-
 section h2 {
     font-size: 1.6em;
     color: #2c3e50;
     margin: 0.5em 0;
 }
 
-/* Contenitore per ogni immagine con descrizione */
+/* Layout a griglia responsiva */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+/* Contenitore singola foto */
 .foto {
-    display: inline-block;
-    margin: 10px;
     text-align: center;
-    vertical-align: top;
 }
 
 /* Immagini responsive */
@@ -95,7 +96,7 @@ section h2 {
 <main>
     <p>Esplora le mie foto con descrizione sintetica. Clicca per aprire in dimensione originale.</p>
 
-    <section id="galleria-foto">
+    <section id="galleria-foto" class="grid">
         <!-- Le foto saranno inserite qui tramite JavaScript -->
     </section>
 </main>
@@ -107,7 +108,7 @@ const fotoDemo = [
         src: "images/ARVI.jpg",
         descrizione: "In Verde le aree aride (RGB)"
     },
-        {
+    {
         src: "images/DSM.jpg",
         descrizione: "DSM ad alta risoluzione per computi GIS"
     },
