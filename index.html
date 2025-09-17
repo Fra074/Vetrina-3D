@@ -5,16 +5,81 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vetrina Modelli 3D</title>
 <style>
-body { font-family: Arial, sans-serif; margin: 0; background: #f4f7f6; color: #333; line-height: 1.6; }
-header { background: #2c3e50; color: white; padding: 1em; text-align: center; }
-header h1 { margin: 0; font-size: 2em; }
-nav a { color: #ecf0f1; margin: 0 1em; text-decoration: none; font-weight: bold; }
-nav a:hover { color: #3498db; }
-main { max-width: 1200px; margin: 2em auto; padding: 1em; }
-section { margin-bottom: 3em; text-align: center; }
-section h2 { font-size: 1.6em; color: #2c3e50; margin: 0.5em 0; }
-iframe { width: 100%; max-width: 900px; height: 500px; border: none; border-radius: 8px; margin-top: 10px; }
-.thumbnail { max-width: 200px; border-radius: 6px; margin: 10px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background: #2c3e50;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+nav a {
+    color: #ecf0f1;
+    margin: 0 1em;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #3498db;
+}
+
+main {
+    max-width: 1200px;
+    margin: 2em auto;
+    padding: 1em;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 1.6em;
+    color: #2c3e50;
+    margin: 0.5em 0;
+}
+
+/* Layout a griglia responsiva per i modelli */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+/* Contenitore singolo modello */
+.modello {
+    text-align: center;
+}
+
+/* Anteprime 3D */
+.modello img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: block;
+    margin: 0 auto 10px auto;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+/* Nome file sotto l’anteprima */
+.modello p {
+    font-size: 0.9em;
+    margin: 0;
+    color: #555;
+}
 </style>
 </head>
 <body>
@@ -31,49 +96,45 @@ iframe { width: 100%; max-width: 900px; height: 500px; border: none; border-radi
 <main>
     <p>Esplora i miei modelli demo. Clicca sulle anteprime per aprire il visualizzatore online.</p>
 
-    <div id="catalogo-3d"></div>
+    <section id="catalogo-3d" class="grid">
+        <!-- I modelli saranno inseriti qui tramite JavaScript -->
+    </section>
 </main>
 
 <script>
-// --- Array di modelli demo ---
+// --- Array dei modelli demo ---
 const modelliDemo = [
     {
-        titolo: "Casaforte in Sdricca",
-        url: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/models/Casaforte.ply",
-        thumb: "images/casaforte.png"
-    },
-     {
-        titolo: "Acquisizione rapida Ponte",
-        url: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/models/mesh_ponte.ply",
-        thumb: "images/ponte.png"
+        titolo: "Chiesetta (demo PLY)",
+        url: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/models/chiesetta.ply",
+        thumb: "images/thumb_chiesetta.jpg"
     },
     {
         titolo: "Chiesetta Moimacco",
         url: "https://raw.githubusercontent.com/Fra074/Vetrina-3D/main/models/Chiesetta_Moimacco.ply",
         thumb: "images/chiesetta_moimacco.png"
     }
-    // 👆 puoi aggiungerne altri seguendo questo schema
 ];
 
 const catalogo = document.getElementById("catalogo-3d");
 
 modelliDemo.forEach(modello => {
-    const section = document.createElement("section");
+    const div = document.createElement("div");
+    div.className = "modello";
 
     const img = document.createElement("img");
     img.src = modello.thumb;
-    img.className = "thumbnail";
     img.alt = modello.titolo;
     img.onclick = () => {
         window.open(`https://3dviewer.net/#model=${modello.url}`, "_blank");
-    };
+    }
 
-    const h2 = document.createElement("h2");
-    h2.textContent = modello.titolo;
+    const p = document.createElement("p");
+    p.textContent = modello.titolo;
 
-    section.appendChild(img);
-    section.appendChild(h2);
-    catalogo.appendChild(section);
+    div.appendChild(img);
+    div.appendChild(p);
+    catalogo.appendChild(div);
 });
 </script>
 
