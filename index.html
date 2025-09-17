@@ -49,7 +49,7 @@ section h2 {
     margin: 0.5em 0;
 }
 
-/* Layout a griglia responsiva per i modelli */
+/* Griglia responsiva */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -65,7 +65,7 @@ section h2 {
 /* Anteprime 3D */
 .modello img {
     width: 100%;
-    max-width: 300px;
+    max-width: 250px; /* leggermente più piccola per più affiancamento */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     display: block;
@@ -79,6 +79,7 @@ section h2 {
     font-size: 0.9em;
     margin: 0;
     color: #555;
+    word-wrap: break-word; /* va a capo automaticamente se troppo lungo */
 }
 </style>
 </head>
@@ -96,6 +97,7 @@ section h2 {
 <main>
     <p>Esplora i miei modelli demo. Clicca sulle anteprime per aprire il visualizzatore online.</p>
 
+    <h2>I miei Modelli 3D</h2>
     <section id="catalogo-3d" class="grid">
         <!-- I modelli saranno inseriti qui tramite JavaScript -->
     </section>
